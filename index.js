@@ -21,6 +21,10 @@ app.get('/users/:userId/books/:bookId', (req, res) => {
   return res.send(req.params)
 })
 
+app.get('/flights/:from-:to', (req, res) => {
+  return res.send(req.params)
+})
+
 app.all('/secret', (req, res, next) => {
   console.log('Accessing the secret section ...')
   return next()
