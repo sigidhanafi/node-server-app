@@ -30,4 +30,15 @@ app.all('/secret', (req, res, next) => {
   return next()
 })
 
+pp.route('/book')
+  .get(function (req, res) {
+    res.send('Get a random book')
+  })
+  .post(function (req, res) {
+    res.send('Add a book')
+  })
+  .put(function (req, res) {
+    res.send('Update the book')
+  })
+
 app.listen(port, () => { console.log(`App now listen on port ${port}`) })
