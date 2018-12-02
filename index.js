@@ -6,6 +6,12 @@ app.use('/static', express.static('public'))
 // use static file, add prefix path /static
 // we can access from http://localhost:3000/static/perfect-code.jpg
 
+// use modular
+const products = require('./routes/products')
+app.use('/products', products)
+const categories = require('./routes/categories')
+app.use('/categories', categories)
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/', (req, res) => res.send('Hello post method!'))
@@ -30,7 +36,7 @@ app.all('/secret', (req, res, next) => {
   return next()
 })
 
-pp.route('/book')
+app.route('/book')
   .get(function (req, res) {
     res.send('Get a random book')
   })
