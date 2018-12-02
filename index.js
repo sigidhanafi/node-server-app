@@ -25,6 +25,13 @@ const mySecondLogger = (req, res, next) => {
 app.use(myLogger)
 app.use(mySecondLogger)
 
+// middleware only for special path
+const myProductMiddleware = (req, res, next) => {
+  console.log('this only show on product route request')
+  next()
+}
+app.use('/products', myProductMiddleware)
+
 // use modular
 const products = require('./routes/products')
 app.use('/products', products)
