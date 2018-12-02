@@ -11,8 +11,9 @@ const myLogger = (req, res, next) => {
   console.log('Logger Start')
   console.log('Logger End')
 
-  // modify req
+  // modify req / res
   req.text = { text: 'Already log in the middleware!' }
+  res.text = 'HALO'
   next()
 }
 app.use(myLogger)
