@@ -16,7 +16,14 @@ const myLogger = (req, res, next) => {
   res.text = 'HALO'
   next()
 }
+
+const mySecondLogger = (req, res, next) => {
+  console.log('2nd Logger Start')
+  console.log('2nd Logger End')
+  next()
+}
 app.use(myLogger)
+app.use(mySecondLogger)
 
 // use modular
 const products = require('./routes/products')
