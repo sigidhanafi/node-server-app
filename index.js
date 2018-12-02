@@ -6,6 +6,17 @@ app.use('/static', express.static('public'))
 // use static file, add prefix path /static
 // we can access from http://localhost:3000/static/perfect-code.jpg
 
+// middleware
+const myLogger = (req, res, next) => {
+  console.log('Logger Start')
+  console.log('Logger End')
+
+  // modify req
+  req.text = { text: 'Already log in the middleware!' }
+  next()
+}
+app.use(myLogger)
+
 // use modular
 const products = require('./routes/products')
 app.use('/products', products)
@@ -16,7 +27,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/', (req, res) => res.send('Hello post method!'))
 
-app.get('/random.text', function (req, res) {
+app.get('/random.text', function(req, res) {
   res.send('random.text')
 })
 
@@ -36,15 +47,18 @@ app.all('/secret', (req, res, next) => {
   return next()
 })
 
-app.route('/book')
-  .get(function (req, res) {
+app
+  .route('/book')
+  .get(function(req, res) {
     res.send('Get a random book')
   })
-  .post(function (req, res) {
+  .post(function(req, res) {
     res.send('Add a book')
   })
-  .put(function (req, res) {
+  .put(function(req, res) {
     res.send('Update the book')
   })
 
-app.listen(port, () => { console.log(`App now listen on port ${port}`) })
+app.listen(port, () => {
+  console.log(`App now listen on port ${port}`)
+})
