@@ -100,7 +100,11 @@ app.get('/handle-error-promise', (req, res, next) => {
 // create error handle in the last other app.use / middleware
 app.use((err, req, res, next) => {
   console.error(err.stack)
-  res.status(500).send('Something broke!')
+  if (req.xhr) {
+    res.status(500).send({ error: 'Somthing broken!' })
+  } else {
+    res.status(500).send('Something broken!')
+  }
 })
 
 app.listen(port, () => {
