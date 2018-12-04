@@ -74,6 +74,35 @@ app
     res.send('Update the book')
   })
 
+// hanlde error async
+// should use try catch
+app.get('/handle-error-async', (req, res, next) => {
+  setTimeout(() => {
+    try {
+      throw new Error('Throw new error')
+    } catch (err) {
+      next(err)
+    }
+  }, 1000)
+})
+
+// handling error with promise
+app.get('/handle-error-promise', (req, res, next) => {
+  Promise.resolve()
+    .then(() => {
+      throw new Error('Throw new error')
+    })
+    .catch(error => {
+      next(error)
+    })
+})
+
+// create error handle in the last other app.use / middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
 app.listen(port, () => {
   console.log(`App now listen on port ${port}`)
 })
